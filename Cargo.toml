@@ -1,11 +1,3 @@
-[package]
-name = "VideoSystem"
-version = "0.0.1"
-edition = "2021"
-
-[lib]
-path = "videosystem/lib.rs"
-crate-type = ["cdylib"]
-
-[dependencies]
-winit = "0.30.5"
+[workspace]
+resolver = "3"
+members = ["chifir", "videosystem"]

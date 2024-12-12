@@ -1,0 +1,12 @@
+[package]
+name = "VideoSystem"
+version = "0.0.1"
+edition = "2024"
+
+[lib]
+path = "lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+chifir = { path = "../chifir" }
+winit = "0.30.5"

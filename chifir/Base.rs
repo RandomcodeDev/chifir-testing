@@ -1,3 +1,5 @@
+use std::ffi::CString;
+
 #[repr(C)]
 pub struct DateTime {
     year: u32,
@@ -20,7 +22,7 @@ impl DateTime {
 }
 
 #[link(name = "Base")]
-extern "C" {
+unsafe extern "C" {
     #[link_name = "?Base_Alloc@@YAPEAX_J0@Z"]
     pub fn Alloc(size: usize, align: usize) -> *mut ();
     #[link_name = "?Base_Realloc@@YAPEAXPEAX_J@Z"]
@@ -29,4 +31,10 @@ extern "C" {
     pub fn Free(block: *mut ());
     #[link_name = "?Base_AbortSafe@@YAXHPEBD@Z"]
     pub fn AbortSafe(code: u32, msg: *const i8) -> !;
+}
+
+pub fn Quit(msg: &str) -> ! {
+    FatalError!("{msg}");
+    let rawMsg = CString::new(msg).unwrap();
+    unsafe { AbortSafe(1, rawMsg.as_ptr()); }
 }
